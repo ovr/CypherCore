@@ -6482,13 +6482,12 @@ namespace WorldServer.Game.WorldEntities
         {
             // note: form passives activated with shapeshift spells be implemented by HandleShapeshiftBoosts instead of spell_learn_spell
             // talent dependent passives activated at form apply have proper stance data
-            //ShapeshiftForm form = GetShapeshiftForm();
-            //bool need_cast = (spellInfo.Stances == 0 || (form && ((int)spellInfo.Stances & (1 << (form - 1)))) ||
-            //(form == 0 && (spellInfo.AttributesEx2 & SpellAttr2.NOT_NEED_SHAPESHIFT)));
+            ShapeshiftForm form = GetShapeshiftForm();
+            bool need_cast = (spellInfo.Stances == 0 || (form != ShapeshiftForm.None && Convert.ToBoolean(spellInfo.Stances & (1 << ((int)form - 1)))) ||
+            (form == 0 && Convert.ToBoolean(spellInfo.AttributesEx2 & SpellAttr2.NotNeedShapeshift)));
 
             //Check CasterAuraStates
-            //return need_cast && (spellInfo.CasterAuraState == 0 || HasAuraState(AuraStateType(spellInfo.CasterAuraState)));
-            return false;
+            return need_cast && (spellInfo.CasterAuraState == 0 || HasAuraState((AuraStateType)spellInfo.CasterAuraState));
         }
         bool AddSpell(uint spellId, bool active, bool learning, bool dependent, bool disabled, bool loading = false)
         {

@@ -206,7 +206,7 @@ namespace WorldServer.Game.WorldEntities
         }
         uint GetSpellDifficultyId(uint spellId)
         {
-            return SpellDifficultyDic.FindByKey(spellId);
+            return SpellDifficultyDic.LookupByKey(spellId);
         }
         uint GetSpellIdForDifficulty(uint spellId, Unit caster)
         {

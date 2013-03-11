@@ -56,6 +56,7 @@ namespace WorldServer.Game.WorldEntities
             m_movesplineTimer = new TimeTrackerSmall();
             m_modAttackSpeedPct = new float[3];
             m_attackTimer = new uint[(int)WeaponAttackType.MaxAttack];
+            AuraEffectList = new List<AuraEffect>();
         }
 
         //Update / Loading
@@ -1046,7 +1047,7 @@ namespace WorldServer.Game.WorldEntities
             }
             return value;
         }//needs fixed
-        List<AuraEffect> GetAuraEffectsByType(AuraType type) { return m_modAuras[(int)type]; }
+        public List<AuraEffect> GetAuraEffectsByType(AuraType type) { return m_modAuras[(int)type]; }
         public int GetTotalAuraModifier(AuraType auratype)
         {
             Dictionary<SpellGroup, int> SameEffectSpellGroup = new Dictionary<SpellGroup, int>();
@@ -1082,6 +1083,36 @@ namespace WorldServer.Game.WorldEntities
             //else
             //m_modAuras[aurEff.GetAuraType()].Remove(aurEff);
         }
+        public bool HasAuraState(AuraStateType flag, SpellInfo spellProto = null, Unit Caster = null)
+        {
+            if (Caster != null)
+            {
+                if (spellProto != null)
+                {
+                    var stateAuras = Caster.GetAuraEffectsByType(AuraType.AbilityIgnoreAurastate);
+                    foreach (var aura in stateAuras)
+                        if (aura.IsAffectingSpell(spellProto))
+                            return true;
+                }
+                // Check per caster aura state
+                // If aura with aurastate by caster not found return false
+               // if (Convert.ToBoolean((1 << ((int)flag - 1)) & (int)AuraStateType.PER_CASTER_AURA_STATE_MASK))
+                //{
+                   // AuraStateAurasMapBounds range = m_auraStateAuras.equal_range(flag);
+                   // for (AuraStateAurasMap::const_iterator itr = range.first; itr != range.second; ++itr)
+                      //  if (itr.second.GetBase().GetCasterGUID() == Caster.GetGUID())
+                      //      return true;
+                    //return false;
+                //}
+            }
+
+            return HasFlag(UnitFields.AuraState, 1 << ((int)flag - 1));
+        }
+
+
+
+
+
 
         //Stats
         public void SetCreateStat(Stats stat, float val) { CreateStats[(int)stat] = val; }
@@ -1585,9 +1616,10 @@ namespace WorldServer.Game.WorldEntities
             uint count = 1;
             //size_t maxsize = 4+5+5+4+4+1+4+4+4+4+4+1+4+4+4+4+4*12;
             PacketWriter data = new PacketWriter(Opcodes.SMSG_Attackerstateupdate);
-            data.WriteUInt32(damageInfo.HitInfo);
             data.WriteUInt64(damageInfo.attacker.GetPackGUID());
             data.WriteUInt64(damageInfo.target.GetPackGUID());
+            data.WriteUInt8(damageInfo.TargetState);
+            data.WriteUInt32(damageInfo.HitInfo);
             data.WriteUInt32(damageInfo.damage);                     // Full damage
             int overkill = (int)(damageInfo.damage - damageInfo.target.GetHealth());
             data.WriteUInt32(overkill < 0 ? 0 : overkill);            // Overkill
@@ -1612,7 +1644,7 @@ namespace WorldServer.Game.WorldEntities
                     data.WriteUInt32(damageInfo.resist);             // Resist
             }
 
-            data.WriteUInt8(damageInfo.TargetState);
+
             data.WriteUInt32(0);  // Unknown attackerstate
             data.WriteUInt32(0);  // Melee spellid
 
@@ -2060,13 +2092,16 @@ namespace WorldServer.Game.WorldEntities
         public void SetAttackTime(WeaponAttackType att, uint val) { SetValue<float>(UnitFields.AttackRoundBaseTime + (int)att, val * m_modAttackSpeedPct[(int)att]); }
         public void SetPvP(bool state)
         {
-            if (state)
-                SetFlag<byte>(UnitFields.Bytes2, (byte)UnitPVPStateFlags.PVP, 1);
-            else
-                RemoveFlag<byte>(UnitFields.Bytes2, (byte)UnitPVPStateFlags.PVP, 1);
+            //if (state)
+                //SetFlag<byte>(UnitFields.Bytes2, (byte)UnitPVPStateFlags.PVP, 1);
+            //else
+                //RemoveFlag<byte>(UnitFields.Bytes2, (byte)UnitPVPStateFlags.PVP, 1);
         }
                 
 
+
+
+        List<AuraEffect> AuraEffectList;
         #region Fields
         //Public 
         public DeathState m_deathState { get; set; }

@@ -1300,8 +1300,8 @@ namespace WorldServer.Game.WorldEntities
                         if (thisPlayer.GetTeam() != objPlayer.GetTeam())// || !thisPlayer.IsGroupVisibleFor(objPlayer))
                             return false;
                     }
-                    else
-                        return false;
+                    //else
+                        //return false;
                 }
                 else
                     return false;

@@ -122,7 +122,7 @@ namespace WorldServer.Game.Managers
                 return Convert.ToBoolean(factionState.Flags & FactionFlags.AtWar);
             return false;
         }
-        public ReputationRank GetForcedRankIfAny(FactionTemplateEntry factionTemplateEntry) { return _forcedReactions.FindByKey(factionTemplateEntry.faction); }
+        public ReputationRank GetForcedRankIfAny(FactionTemplateEntry factionTemplateEntry) { return _forcedReactions.LookupByKey(factionTemplateEntry.faction); }
         public ReputationRank GetRank(FactionEntry factionEntry)
         {
             int reputation = GetReputation(factionEntry);

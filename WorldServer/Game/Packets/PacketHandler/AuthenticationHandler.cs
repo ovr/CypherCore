@@ -49,11 +49,38 @@ namespace WorldServer.Game.Packets
         [ClientOpcode(Opcodes.CMSG_AuthSession)]
         public static void HandleAuthSession(ref PacketReader packet, ref WorldSession session)
         {
-            packet.Skip(54);
-            //ushort clientBuild = packet.ReadUInt16();
-            //packet.Skip(11);
-            //uint clientSeed = packet.ReadUInt32();
-            //packet.Skip(7);
+            byte[] digest = new byte[20];
+
+            packet.Skip(6);
+            digest[5] = packet.ReadByte();
+            byte minorVersion = packet.ReadByte();
+            digest[2] = packet.ReadByte();
+            ushort clientBuild = packet.ReadUInt16();
+            digest[18] = packet.ReadByte();
+            digest[10] = packet.ReadByte();
+            uint clientSeed = packet.ReadUInt32();//????
+            digest[9] = packet.ReadByte();
+            digest[8] = packet.ReadByte();
+            digest[11] = packet.ReadByte();
+            digest[13] = packet.ReadByte();
+            digest[4] = packet.ReadByte();
+            digest[7] = packet.ReadByte();
+            digest[16] = packet.ReadByte();
+            digest[1] = packet.ReadByte();
+            digest[0] = packet.ReadByte();
+            digest[14] = packet.ReadByte();
+            digest[12] = packet.ReadByte();
+            byte majorVersion = packet.ReadByte();
+            digest[17] = packet.ReadByte();
+            digest[19] = packet.ReadByte();
+            packet.Skip(12);
+            digest[3] = packet.ReadByte();
+            packet.Skip(8);
+            digest[6] = packet.ReadByte();
+            digest[15] = packet.ReadByte();
+
+            //
+
 
             int addonSize = packet.ReadInt32();
             byte[] addondata = packet.ReadBytes(addonSize);

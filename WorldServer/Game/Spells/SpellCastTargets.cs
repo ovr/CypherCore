@@ -44,7 +44,7 @@ namespace WorldServer.Game.Spells
             TargetMask = 0;
         }
 
-        void Read(PacketReader data, Unit caster)
+        public void Read(ref PacketReader data, Unit caster)
         {
             TargetMask = (SpellCastTargetFlags)data.ReadUInt32();
 

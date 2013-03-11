@@ -186,7 +186,7 @@ namespace WorldServer.Game.Movement
         }
         void EvaluateDerivativeCatmullRom(int index, float t, out Vector3 result)
         {
-            C_Evaluate_Derivative(points.IndexRange(index - 1).ToArray(), t, s_catmullRomCoeffs, out result);
+            C_Evaluate_Derivative(points.Skip(index - 1).ToArray(), t, s_catmullRomCoeffs, out result);//needs checked
         }
         void EvaluateDerivativeBezier3(int index, float t, out Vector3 result)
         {

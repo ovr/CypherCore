@@ -20,19 +20,65 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Diagnostics.Contracts;
 
 namespace Framework.Utility
 {
     public static class Extensions
     {
-        public static IEnumerable<TSource> IndexRange<TSource>(this IList<TSource> source, int fromIndex)
+        /// <summary>
+        /// Checks if a given enum value has any of the given enum flags.
+        /// </summary>
+        /// <param name="value">The value to check.</param>
+        /// <param name="toTest">The flags to test.</param>
+        public static bool HasAnyFlag(this Enum value, Enum toTest)
         {
-            int currIndex = fromIndex;
-            while (currIndex <= source.Count)
-            {
-                yield return source[currIndex];
-                currIndex++;
-            }
+            Contract.Requires(value != null);
+            Contract.Requires(toTest != null);
+
+            var val = ((IConvertible)value).ToUInt64(null);
+            var test = ((IConvertible)toTest).ToUInt64(null);
+
+            return (val & test) != 0;
+        }
+
+        /// <summary>
+        /// Returns the entry in this list at the given index, or the default value of the element
+        /// type if the index was out of bounds.
+        /// </summary>
+        /// <typeparam name="T">The type of the elements in the list.</typeparam>
+        /// <param name="list">The list to retrieve from.</param>
+        /// <param name="index">The index to try to retrieve at.</param>
+        /// <returns>The value, or the default value of the element type.</returns>
+        public static T LookupByKey<T>(this IList<T> list, int index)
+        {
+            Contract.Requires(list != null);
+            Contract.Requires(index >= 0);
+
+            return index >= list.Count ? default(T) : list[index];
+        }
+
+        /// <summary>
+        /// Returns the entry in this dictionary at the given key, or the default value of the key
+        /// if none.
+        /// </summary>
+        /// <typeparam name="TKey">The key type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        /// <param name="dict">The dictionary to operate on.</param>
+        /// <param name="key">The key of the element to retrieve.</param>
+        /// <returns>The value (if any).</returns>
+        public static TValue LookupByKey<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+        {
+            Contract.Requires(dict != null);
+            Contract.Requires(key != null);
+
+            TValue val;
+            return dict.TryGetValue(key, out val) ? val : default(TValue);
+        }
+
+        public static bool empty<T>(this IList<T> list)
+        {
+            return list.Count != 0;
         }
 
         public static T ReadStruct<T>(this BinaryReader reader) where T : struct
@@ -47,7 +93,7 @@ namespace Framework.Utility
             return returnObject;
         }
 
-        public static T ReadGameObjectData<T>(this int[] result) where T : struct
+        public static T ReadStruct<T>(this int[] result) where T : struct
         {
             int size = Marshal.SizeOf(typeof(T)) / 4;
             int[] rawData = new int[size];
@@ -60,7 +106,7 @@ namespace Framework.Utility
             return returnObject;
         }
 
-        public unsafe static void ReadValues<T>(this BinaryReader reader, int count, out T[] values) where T : struct
+        public static void ReadValues<T>(this BinaryReader reader, int count, out T[] values) where T : struct
         {
             values = new T[count];
             for (int i = 0; i < count; i++)
@@ -86,71 +132,20 @@ namespace Framework.Utility
             List<byte> temp = new List<byte>();
 
             while ((num = reader.ReadByte()) != 0)
-            {
                 temp.Add(num);
-            }
 
             return Encoding.UTF8.GetString(temp.ToArray());
         }
 
-        public static int GetFMTCount(this string fmt)
+        //old shit
+        public static IEnumerable<TSource> IndexRange<TSource>(this IList<TSource> source, int fromIndex)
         {
-            int count = 0;
-            for (var i = 0; i < fmt.Length; i++)
+            int currIndex = fromIndex;
+            while (currIndex <= source.Count)
             {
-                switch (fmt[i])
-                {
-                    case 'f':
-                        count += sizeof(float);
-                        break;
-                    case 'n':
-                    case 'i':
-                    case 's':
-                        count += sizeof(uint);
-                        break;
-                    case 'b':
-                        count += sizeof(byte);
-                        break;
-                    case 'h':
-                    case 'x':
-                    case 'd':
-                        break;
-                }
+                yield return source[currIndex];
+                currIndex++;
             }
-            return count;
-        }
-
-        public static T LookupByKey<T>(this Dictionary<uint, T> dictionary, uint key) where T : class
-        {
-            T value;
-            dictionary.TryGetValue(key, out value);
-            return value;
-        }
-        public static T LookupByKey<T>(this SortedDictionary<uint, T> dictionary, uint key) where T : class
-        {
-            T value;
-            dictionary.TryGetValue(key, out value);
-            return value;
-        }
-
-        public static T LookupByKey<T>(this Dictionary<ulong, T> dictionary, ulong key) where T : class
-        {
-            T value;
-            dictionary.TryGetValue(key, out value);
-            return value;
-        }
-        public static T FindByKey<T>(this Dictionary<uint, T> dictionary, uint key) where T : struct
-        {
-            T value;
-            if (dictionary.TryGetValue(key, out value))
-                return value;
-            else
-                return default(T);
-        }
-
-        public static Tuple<T, D> LookupByKey<T, D>(this List<Tuple<T, D>> blah, int id)
-        {
-            return blah.Find(p => Convert.ToInt32(p.Item1) == id);
         }
     }
 }

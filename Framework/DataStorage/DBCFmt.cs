@@ -19,6 +19,33 @@ namespace Framework.DataStorage
 {
     public static class DBCFmt
     {
+        public static int GetFMTCount(this string fmt)
+        {
+            int count = 0;
+            for (var i = 0; i < fmt.Length; i++)
+            {
+                switch (fmt[i])
+                {
+                    case 'f':
+                        count += sizeof(float);
+                        break;
+                    case 'n':
+                    case 'i':
+                    case 's':
+                        count += sizeof(uint);
+                        break;
+                    case 'b':
+                        count += sizeof(byte);
+                        break;
+                    case 'h':
+                    case 'x':
+                    case 'd':
+                        break;
+                }
+            }
+            return count;
+        }
+
         // x - skip<uint32>, h - skip<uint8>, s - string, f - float, i - uint32, b - uint8, d - index (not included)
         // n - index (included), l - bool
         public const string AreaTableEntryfmt = "iiinixxxxxsxixiiiiixxxxxxxxxxx";

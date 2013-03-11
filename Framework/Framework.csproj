@@ -142,6 +142,7 @@
     <Compile Include="Singleton\SingletonBase.cs" />
     <Compile Include="Utility\RandomHelper.cs" />
     <Compile Include="Utility\Time.cs" />
+    <Compile Include="Utility\Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

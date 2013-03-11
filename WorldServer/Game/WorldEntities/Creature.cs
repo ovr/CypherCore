@@ -296,7 +296,7 @@ namespace WorldServer.Game.WorldEntities
 
             SetValue<uint>(UnitFields.DynamicFlags, dynamicflags);
 
-            RemoveFlag(UnitFields.Flags, UnitFlags.InCombat);
+            //RemoveFlag(UnitFields.Flags, UnitFlags.InCombat);
 
             //SetMeleeDamageSchool(SpellSchools(cInfo->dmgschool));
             //CreatureBaseStats stats = Globals.ObjMgr.GetCreatureBaseStats(getLevel(), cInfo.UnitClass);

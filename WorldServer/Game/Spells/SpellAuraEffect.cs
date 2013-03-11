@@ -30,7 +30,20 @@ namespace WorldServer.Game.Spells
 
         }
 
+        public bool IsAffectingSpell(SpellInfo spell)
+        {
+            if (spell == null)
+                return false;
+            // Check family name
+            if (spell.SpellFamilyName != m_spellInfo.SpellFamilyName)
+                return false;
 
+            // Check EffectClassMask
+            if (m_spellInfo.Effects[m_effIndex].SpellClassMask & spell.SpellFamilyFlags)
+                return true;
+
+            return false;
+        }
 
         public SpellInfo GetSpellInfo() { return m_spellInfo; }
         public int GetAmount() { return m_amount; }
@@ -39,6 +52,7 @@ namespace WorldServer.Game.Spells
 
 
         #region Fields
+        byte m_effIndex;
         int m_amount;
         bool m_canBeRecalculated;
         SpellInfo m_spellInfo;

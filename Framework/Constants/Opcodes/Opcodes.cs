@@ -104,7 +104,7 @@ namespace Framework.Constants
         CMSG_CancelQueuedSpell = 0x7B1C,
         CMSG_CancelTempEnchantment = 0x6C37,
         CMSG_CancelTrade = 0x731E,
-        CMSG_CastSpell = 0x4C07,
+        CMSG_CastSpell = 0x014C,
         CMSG_ChangeplayerDifficulty = 0x6107,
         CMSG_ChangeSeatsOnControlledVehicle = 0x7310,
         CMSG_ChannelAnnouncements = 0x1146,
@@ -604,7 +604,7 @@ namespace Framework.Constants
         SMSG_ArenaTeamQueryResponse = 0x6336,
         SMSG_ArenaTeamRoster = 0x2717,
         SMSG_ArenaTeamStats = 0x4425,
-        SMSG_Attackerstateupdate = 0xB25, //16357
+        SMSG_Attackerstateupdate = 0x4E8, //16357
         SMSG_Attackstart = 0xEA8, //16357
         SMSG_Attackstop = 0xDE4, //16357
         SMSG_AttackswingBadfacing = 0x0B36,
@@ -1155,8 +1155,8 @@ namespace Framework.Constants
         SMSG_SpellDelayed = 0x0715,
         SMSG_SpellFailedOther = 0x0C34,// or 0x4535
         SMSG_SpellFailure = 0x4535,// or 0x0C34
-        SMSG_SpellGo = 0x6E16,
-        SMSG_SpellStart = 0x6415,
+        SMSG_SpellGo = 0x0C8D, //16357
+        SMSG_SpellStart = 0x09E4, //16357
         SMSG_SpellUpdateChainTargets = 0x6006,
         SMSG_SpiritHealerConfirm = 0x4917,
         SMSG_MoveSplineCollisionDisable = 0x34, //16357

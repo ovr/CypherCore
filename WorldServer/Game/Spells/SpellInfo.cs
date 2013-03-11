@@ -155,7 +155,7 @@ namespace WorldServer.Game.Spells
             if (_class != null)
             {
                 SpellFamilyName = _class.SpellFamilyName;
-                SpellFamilyFlags = _class.SpellFamilyFlags;
+                SpellFamilyFlags = new flag96(_class.SpellFamilyFlags);
             }
 
             // SpellCooldownsEntry
@@ -556,7 +556,7 @@ namespace WorldServer.Game.Spells
         //uint MaxTargetLevel;
         public uint MaxAffectedTargets { get; set; }
         public uint SpellFamilyName { get; set; }
-        public uint[] SpellFamilyFlags { get; set; }
+        public flag96 SpellFamilyFlags { get; set; }
         public SpellDmgClass DmgClass { get; set; }
         public uint PreventionType { get; set; }
         public int AreaGroupId { get; set; }
@@ -639,7 +639,7 @@ namespace WorldServer.Game.Spells
             ChainTarget = _effect.EffectChainTarget;
             ItemType = _effect.EffectItemType;
             TriggerSpell = _effect.EffectTriggerSpell;
-            //SpellClassMask = _effect.EffectSpellClassMask;
+            SpellClassMask = new flag96(_effect.EffectSpellClassMask);
             //ImplicitTargetConditions = null;
             //ScalingMultiplier = scaling != null ? scaling.Multiplier[_effIndex] : 0.0f;
             //DeltaScalingMultiplier = scaling != null ? scaling.RandomMultiplier[_effIndex] : 0.0f;
@@ -780,7 +780,7 @@ namespace WorldServer.Game.Spells
         public uint ChainTarget { get; private set; }
         public uint ItemType { get; private set; }
         public uint TriggerSpell { get; private set; }
-        //flag96    SpellClassMask;
+        public flag96 SpellClassMask;
         //std::list<Condition*>* ImplicitTargetConditions;
         public float ScalingMultiplier { get; private set; }
         public float DeltaScalingMultiplier { get; private set; }

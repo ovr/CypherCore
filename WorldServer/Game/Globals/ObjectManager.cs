@@ -87,8 +87,8 @@ namespace WorldServer.Game
         public Corpse GetCorpseForPlayerGUID(ulong guid)
         {
             //Lock
-
-            return (Corpse)i_player2corpse.LookupByKey(guid);
+            return null;
+            //return (Corpse)i_player2corpse.LookupByKey(guid);
         }
 
         public WorldObject GetObjectByTypeMask(WorldObject p, ulong guid, HighGuidMask typemask)
@@ -2404,88 +2404,88 @@ namespace WorldServer.Game
                 switch (got.type)
                 {
                     case GameObjectTypes.Door:
-                        got.Door = got.RawData.ReadGameObjectData<GameObjectTemplate.door>();
+                        got.Door = got.RawData.ReadStruct<GameObjectTemplate.door>();
                         break;
                     case GameObjectTypes.Button:
-                        got.Button = got.RawData.ReadGameObjectData<GameObjectTemplate.button>();
+                        got.Button = got.RawData.ReadStruct<GameObjectTemplate.button>();
                         break;
                     case GameObjectTypes.QuestGiver:
-                        got.QuestGiver = got.RawData.ReadGameObjectData<GameObjectTemplate.questgiver>();
+                        got.QuestGiver = got.RawData.ReadStruct<GameObjectTemplate.questgiver>();
                         break;
                     case GameObjectTypes.Chest:
-                        got.Chest = got.RawData.ReadGameObjectData<GameObjectTemplate.chest>();
+                        got.Chest = got.RawData.ReadStruct<GameObjectTemplate.chest>();
                         break;
                     case GameObjectTypes.Generic:
-                        got.Generic = got.RawData.ReadGameObjectData<GameObjectTemplate.generic>();
+                        got.Generic = got.RawData.ReadStruct<GameObjectTemplate.generic>();
                         break;
                     case GameObjectTypes.Trap:
-                        got.Trap = got.RawData.ReadGameObjectData<GameObjectTemplate.trap>();
+                        got.Trap = got.RawData.ReadStruct<GameObjectTemplate.trap>();
                         break;
                     case GameObjectTypes.Chair:
-                        got.Chair = got.RawData.ReadGameObjectData<GameObjectTemplate.chair>();
+                        got.Chair = got.RawData.ReadStruct<GameObjectTemplate.chair>();
                         break;
                     case GameObjectTypes.SpellFocus:
-                        got.SpellFocus = got.RawData.ReadGameObjectData<GameObjectTemplate.spellFocus>();
+                        got.SpellFocus = got.RawData.ReadStruct<GameObjectTemplate.spellFocus>();
                         break;
                     case GameObjectTypes.Text:
-                        got.Text = got.RawData.ReadGameObjectData<GameObjectTemplate.text>();
+                        got.Text = got.RawData.ReadStruct<GameObjectTemplate.text>();
                         break;
                     case GameObjectTypes.Goober:
-                        got.Goober = got.RawData.ReadGameObjectData<GameObjectTemplate.goober>();
+                        got.Goober = got.RawData.ReadStruct<GameObjectTemplate.goober>();
                         break;
                     case GameObjectTypes.Transport:
-                        got.Transport = got.RawData.ReadGameObjectData<GameObjectTemplate.transport>();
+                        got.Transport = got.RawData.ReadStruct<GameObjectTemplate.transport>();
                         break;
                     case GameObjectTypes.AreaDamage:
-                        got.AreaDamage = got.RawData.ReadGameObjectData<GameObjectTemplate.areadamage>();
+                        got.AreaDamage = got.RawData.ReadStruct<GameObjectTemplate.areadamage>();
                         break;
                     case GameObjectTypes.Camera:
-                        got.Camera = got.RawData.ReadGameObjectData<GameObjectTemplate.camera>();
+                        got.Camera = got.RawData.ReadStruct<GameObjectTemplate.camera>();
                         break;
                     case GameObjectTypes.MoTransport:
-                        got.MoTransport = got.RawData.ReadGameObjectData<GameObjectTemplate.moTransport>();
+                        got.MoTransport = got.RawData.ReadStruct<GameObjectTemplate.moTransport>();
                         break;
                     case GameObjectTypes.Ritual:
-                        got.SummoningRitual = got.RawData.ReadGameObjectData<GameObjectTemplate.summoningRitual>();
+                        got.SummoningRitual = got.RawData.ReadStruct<GameObjectTemplate.summoningRitual>();
                         break;
                     case GameObjectTypes.GuardPost:
-                        got.GuardPost = got.RawData.ReadGameObjectData<GameObjectTemplate.guardpost>();
+                        got.GuardPost = got.RawData.ReadStruct<GameObjectTemplate.guardpost>();
                         break;
                     case GameObjectTypes.SpellCaster:
-                        got.SpellCaster = got.RawData.ReadGameObjectData<GameObjectTemplate.spellcaster>();
+                        got.SpellCaster = got.RawData.ReadStruct<GameObjectTemplate.spellcaster>();
                         break;
                     case GameObjectTypes.MeetingStone:
-                        got.MeetingStone = got.RawData.ReadGameObjectData<GameObjectTemplate.meetingstone>();
+                        got.MeetingStone = got.RawData.ReadStruct<GameObjectTemplate.meetingstone>();
                         break;
                     case GameObjectTypes.FlagStand:
-                        got.FlagStand = got.RawData.ReadGameObjectData<GameObjectTemplate.flagstand>();
+                        got.FlagStand = got.RawData.ReadStruct<GameObjectTemplate.flagstand>();
                         break;
                     case GameObjectTypes.FishingHole:
-                        got.FishingHole = got.RawData.ReadGameObjectData<GameObjectTemplate.fishinghole>();
+                        got.FishingHole = got.RawData.ReadStruct<GameObjectTemplate.fishinghole>();
                         break;
                     case GameObjectTypes.FlagDrop:
-                        got.FlagDrop = got.RawData.ReadGameObjectData<GameObjectTemplate.flagdrop>();
+                        got.FlagDrop = got.RawData.ReadStruct<GameObjectTemplate.flagdrop>();
                         break;
                     case GameObjectTypes.MiniGame:
-                        got.MiniGame = got.RawData.ReadGameObjectData<GameObjectTemplate.miniGame>();
+                        got.MiniGame = got.RawData.ReadStruct<GameObjectTemplate.miniGame>();
                         break;
                     case GameObjectTypes.CapturePoint:
-                        got.CapturePoint = got.RawData.ReadGameObjectData<GameObjectTemplate.capturePoint>();
+                        got.CapturePoint = got.RawData.ReadStruct<GameObjectTemplate.capturePoint>();
                         break;
                     case GameObjectTypes.AuraGenerator:
-                        got.AuraGenerator = got.RawData.ReadGameObjectData<GameObjectTemplate.auraGenerator>();
+                        got.AuraGenerator = got.RawData.ReadStruct<GameObjectTemplate.auraGenerator>();
                         break;
                     case GameObjectTypes.DungeonDifficulty:
-                        got.DungeonDifficulty = got.RawData.ReadGameObjectData<GameObjectTemplate.dungeonDifficulty>();
+                        got.DungeonDifficulty = got.RawData.ReadStruct<GameObjectTemplate.dungeonDifficulty>();
                         break;
                     case GameObjectTypes.BarberChair:
-                        got.BarberChair = got.RawData.ReadGameObjectData<GameObjectTemplate.barberChair>();
+                        got.BarberChair = got.RawData.ReadStruct<GameObjectTemplate.barberChair>();
                         break;
                     case GameObjectTypes.DestructibleBuilding:
-                        got.Building = got.RawData.ReadGameObjectData<GameObjectTemplate.building>();
+                        got.Building = got.RawData.ReadStruct<GameObjectTemplate.building>();
                         break;
                     case GameObjectTypes.TrapDoor:
-                        got.TrapDoor = got.RawData.ReadGameObjectData<GameObjectTemplate.trapDoor>();
+                        got.TrapDoor = got.RawData.ReadStruct<GameObjectTemplate.trapDoor>();
                         break;
                 }
 

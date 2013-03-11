@@ -900,8 +900,8 @@ namespace WorldServer.Game.Spells
         SpellInfo m_spellInfo;
         public Item m_CastItem;
         ulong m_castItemGUID;
-        byte m_cast_count;
-        uint m_glyphIndex;
+        public byte m_cast_count;
+        public uint m_glyphIndex;
         uint m_preCastSpell;
         SpellCastTargets m_targets;
         sbyte m_comboPointGain;
